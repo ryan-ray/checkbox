@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+    localstack:
+        image: localstack/localstack:latest
+        environment: 
+            - SERVICES=lambda,s3
+            - LAMBDA_EXECUTOR=local
+            - DOCKER_HOST=unix:///var/run/docker.sock
+            - DEFAULT_REGION=ap-southeast-2
+            - DEBUG=1
+        ports:
+            - "53:53"
+            - "53:53/udp"
+            - "443:443"
+            - "4566:4566"
+            - "4571:4571"
+            - "8080:8080"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            default:
+
+volumes:
+    localstack_data:
+networks:
+    default:
+        name: localstack-network
+
